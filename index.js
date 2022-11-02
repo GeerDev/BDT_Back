@@ -6,4 +6,6 @@ const PORT = process.env.PORT
 
 dbConnection()
 
+app.use('/companies', require('./routes/companies'));
+
 app.listen(PORT, () => console.log(`Server running in port ${PORT}`))
