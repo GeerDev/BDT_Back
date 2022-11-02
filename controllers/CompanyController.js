@@ -31,6 +31,17 @@ const CompanyController = {
         res.status(500).send("There was a problem sorting the companies by size")
     }
   },
+  async sortByDate(req, res) {
+    try {
+        const totalCompanies = await Company.find()
+        const filteredCompanies = totalCompanies.filter(element => element.founded !== null)
+        const orderByDate = filteredCompanies.sort((a,b) => a.founded - b.founded)
+        const companiesWithoutDate = totalCompanies.filter(element => element.founded === null)
+        res.status(200).send({orderByDate, companiesWithoutDate})
+    } catch (error) {
+        res.status(500).send("There was a problem sorting the companies by date")
+    }
+  },
 };
 
 module.exports = CompanyController;
