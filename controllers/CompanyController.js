@@ -42,6 +42,28 @@ const CompanyController = {
         res.status(500).send("There was a problem sorting the companies by date")
     }
   },
+  async numberOfCompanies(req, res) {
+    try {
+        const totalCompanies = await Company.find()
+        const numberOfTypes = async (parametro) => {
+            const different = await Company.distinct(parametro)
+            const typeCompany = different.map(element => {
+                const type = totalCompanies.filter(ele => ele[parametro] === element)
+                return {[element]:type.length}
+            }).reduce((acumulator, current) => {
+                return { ...acumulator, ...current }
+            }, {})
+            return typeCompany
+        }
+        const numberSize = await numberOfTypes("size")
+        const numberIndustry = await numberOfTypes("industry")
+        const numberFounded = await numberOfTypes("founded")
+        
+        res.status(200).send({numberSize, numberIndustry, numberFounded})
+    } catch (error) {
+        res.status(500).send("There was a problem finding the companies by type")
+    }
+  },
 };
 
 module.exports = CompanyController;
