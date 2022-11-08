@@ -6,7 +6,7 @@ const docs = require('./docs/index')
 require('dotenv').config()
 
 const { dbConnection } = require('./database/config')
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3018
 
 dbConnection()
 

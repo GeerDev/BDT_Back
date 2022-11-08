@@ -1,4 +1,4 @@
-const basicInfo = require('./basicinfo');
+const basicInfo = require('./basicInfo');
 const components = require('./components');
 const company = require('./company');
 
